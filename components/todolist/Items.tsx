@@ -5,9 +5,10 @@ import { todosRecoil } from "util/store/todoArray";
 
 interface props {
   todo: string;
+  index: number;
 }
 
-export default function Items({ todo }: props) {
+export default function Items({ todo, index }: props) {
   const [cheack, setCheack] = useState<boolean>(false);
   const [todos, setTodos] = useRecoilState(todosRecoil);
 
@@ -17,7 +18,7 @@ export default function Items({ todo }: props) {
   };
 
   const handleDelete = () => {
-    setTodos(todos.splice(id, 1));
+    setTodos(todos.filter((_, i) => i !== index));
   };
 
   return (

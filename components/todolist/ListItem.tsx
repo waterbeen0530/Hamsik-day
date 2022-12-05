@@ -10,7 +10,7 @@ export default function ListItem() {
     <Container>
       <Wrapper>
         {todos.map((todo, i) => (
-          <Items key={i} todo={todo} />
+          <Items key={i} todo={todo} index={i} />
         ))}
       </Wrapper>
     </Container>
