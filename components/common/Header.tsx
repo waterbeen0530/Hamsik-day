@@ -17,5 +17,5 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
-  width: 10%;
+  width: 140px;
 `;
