@@ -1,30 +1,32 @@
 import styled from "@emotion/styled";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { todosRecoil } from "util/store/todoArray";
 
 export default function Contents() {
+  const setTodos = useSetRecoilState(todosRecoil);
   const [text, setText] = useState<string>("");
-  const [todo, setTodo] = useState<string[]>([]);
+
+  const changeText = (newText: string) => {
+    setText(newText);
+  };
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value);
+    changeText(event.target.value);
+  };
+
+  const addTodo = (text: string) => {
+    setTodos((pre) => [...pre, text]);
   };
 
   const onClick = () => {
     if (text === "") {
       alert("내용을 입력해주세요🥲");
     } else {
-      setTodo((pre) => [...pre, text]);
-      setText("");
+      addTodo(text);
+      changeText("");
     }
   };
-
-  const props = {
-    todo,
-  };
-
-  useEffect(() => {
-    console.log(todo);
-  }, [todo]);
 
   return (
     <Container>
@@ -40,8 +42,7 @@ export default function Contents() {
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
-  position: relative;
+  height: fit-content;
   margin-top: 30px;
 `;
 
@@ -57,8 +58,9 @@ const Input = styled.input`
 
 const Button = styled.button`
   position: absolute;
-  left: 42%;
-  bottom: 16px;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 50%);
   width: 54px;
   height: 54px;
   border-radius: 27px;
